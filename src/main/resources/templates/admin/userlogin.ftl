@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>${title!'全栈之路-后台登录'}</title>
+    <title>${title!'后台登录'}</title>
 
     <!-- Bootstrap core CSS-->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,22 +21,22 @@
 <body class="bg-dark">
 <div class="container">
     <div class="card card-login mx-auto mt-5">
-        <div class="card-header">Full-Stack</div>
+        <div class="card-header">Chenbei-blog</div>
         <div class="card-body">
             <form>
                 <div class="form-group">
                     <label for="id_username">用户名</label>
                     <input class="form-control" id="id_username" type="text" aria-describedby="emailHelp"
-                           placeholder="Username" name="username">
+                           placeholder="Username" name="username" value="admin">
                 </div>
                 <div class="form-group">
                     <label for="id_password">密码</label>
-                    <input class="form-control" id="id_password" type="password" placeholder="Password" name="password">
+                    <input class="form-control" id="id_password" type="password" placeholder="Password" name="password" value="123456">
                 </div>
                 <div class="form-group">
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="rememberme"> 记住密码 </label>
+                            <input class="form-check-input" type="checkbox" checked="checked" name="rememberme"> 记住密码 </label>
                     </div>
                 </div>
                 <a id="id_user_login_submit" class="btn btn-primary btn-block" href="javascript:void(0);">Login</a>

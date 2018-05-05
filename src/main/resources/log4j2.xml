@@ -61,7 +61,7 @@
         </AsyncRoot>
 
         <!-- 将业务dao接口所在包填写进去,并用控制台输出即可 -->
-        <logger name="com.chenbei.mapper" level="DEBUG" additivity="false">
+        <logger name="com.chenbei.persistence.mapper" level="DEBUG" additivity="false">
             <appender-ref ref="console"/>
         </logger>
     </Loggers>

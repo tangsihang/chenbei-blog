@@ -1,11 +1,11 @@
 package com.chenbei.controller;
 
-import com.chenbei.consts.ViewConsts;
+import com.chenbei.support.consts.ViewConsts;
 import com.chenbei.controller.base.BaseController;
-import com.chenbei.entity.User;
-import com.chenbei.entity.dto.form.UserLoginForm;
-import com.chenbei.entity.dto.form.UserRegisterForm;
-import com.chenbei.service.api.IUserService;
+import com.chenbei.persistence.entity.User;
+import com.chenbei.persistence.entity.dto.form.UserLoginForm;
+import com.chenbei.persistence.entity.dto.form.UserRegisterForm;
+import com.chenbei.persistence.service.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,55 +26,55 @@ import java.util.List;
 @Controller
 public class UserController extends BaseController {
 
-  @Autowired
-  private IUserService mUserService;
+    @Autowired
+    private IUserService mUserService;
 
-  /**
-   * 前台用户登录
-   * 表单提交
-   */
-  @PostMapping("/userlogin.f")
-  public String fFrontUserLogin(HttpServletRequest request, Model model, @Valid UserLoginForm loginForm, BindingResult bindingResult) throws Exception {
-    if (bindingResult.hasErrors()) {
-      List<ObjectError> errors = bindingResult.getAllErrors();
-      addModelAtt(model, ViewConsts.VIEW_MSG, errors.get(0).getDefaultMessage());
-      return "userlogin";
+    /**
+     * 前台用户登录
+     * 表单提交
+     */
+    @PostMapping("/userlogin.f")
+    public String fFrontUserLogin(HttpServletRequest request, Model model, @Valid UserLoginForm loginForm, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            addModelAtt(model, ViewConsts.VIEW_MSG, errors.get(0).getDefaultMessage());
+            return "userlogin";
+        }
+        User user = mUserService.loginAuthentication(loginForm);
+        if (null != user) {
+            mUserService.joinSession(request, user);
+            return "redirect:/";
+        }
+        addModelAtt(model, ViewConsts.VIEW_MSG, "用户名或密码错误");
+        return "userlogin";
     }
-    User user = mUserService.loginAuthentication(loginForm);
-    if (null != user) {
-      mUserService.joinSession(request, user);
-      return "redirect:/";
-    }
-    addModelAtt(model, ViewConsts.VIEW_MSG, "用户名或密码错误");
-    return "userlogin";
-  }
 
-  /**
-   * 前台用户注册
-   * 表单提交
-   */
-  @PostMapping("/userregister.f")
-  public String fFrontUserRegister(@Valid UserRegisterForm registerForm, BindingResult bindingResult, HttpServletRequest request, Model model, User user) {
-    if (bindingResult.hasErrors()) {
-      List<ObjectError> errors = bindingResult.getAllErrors();
-      return "redirect:/userregister";
+    /**
+     * 前台用户注册
+     * 表单提交
+     */
+    @PostMapping("/userregister.f")
+    public String fFrontUserRegister(@Valid UserRegisterForm registerForm, BindingResult bindingResult, HttpServletRequest request, Model model, User user) {
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            return "redirect:/userregister";
+        }
+        //再次进行重名校验
+        if (mUserService.registerUsernameCheckExist(registerForm)) {
+            return "redirect:/userregister";
+        }
+        //再次进行密码一致校验
+        if (!(registerForm.getPassword().equals(registerForm.getConfirmpassword()))) {
+            return "redirect:/userregister";
+        }
+        mUserService.insertUser(user);
+        //跳转登录
+        return "redirect:/userlogin";
     }
-    //再次进行重名校验
-    if (mUserService.registerUsernameCheckExist(registerForm)) {
-      return "redirect:/userregister";
-    }
-    //再次进行密码一致校验
-    if (!(registerForm.getPassword().equals(registerForm.getConfirmpassword()))) {
-      return "redirect:/userregister";
-    }
-    mUserService.insertUser(user);
-    //跳转登录
-    return "redirect:/userlogin";
-  }
 
-  @GetMapping("/usersignout.c")
-  public String cFrontUserSignout(HttpServletRequest request) {
-    mUserService.destroySession(request);
-    return "redirect:index";
-  }
+    @GetMapping("/usersignout.c")
+    public String cFrontUserSignout(HttpServletRequest request) {
+        mUserService.destroySession(request);
+        return "redirect:index";
+    }
 }

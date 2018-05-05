@@ -1,6 +1,6 @@
 spring:
   application:
-    name: fs-blog
+    name: chen-blog
   cache:
     cache-names: ehcache
     ehcache:
@@ -90,5 +90,5 @@ logging:
     config: classpath:log4j2.xml
 
 mybatis:
-    type-aliases-package: com.chenbei.entity
+    type-aliases-package: com.chenbei.persistence.entity
     mapper-locations: classpath:mapping/*.xml

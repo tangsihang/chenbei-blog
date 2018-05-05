@@ -33,7 +33,7 @@
                     </li>
                 <#-- qq -->
                     <li class="list-inline-item mr-3">
-                        <a href="tencent://message/?uin=1146556298&Site=在线QQ&amp;Menu=yes" class="text-white">
+                        <a href="tencent://message/?uin=363718453&Site=在线QQ&amp;Menu=yes" class="text-white">
                             <i class="fa fa-qq fa-2x fa-fw"></i>
                         </a>
                     </li>

@@ -1,6 +1,6 @@
 package com.chenbei.controller.base;
 
-import com.chenbei.entity.dto.response.factory.GeneralJsonFactory;
+import com.chenbei.persistence.entity.dto.response.factory.GeneralJsonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;

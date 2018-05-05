@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chenbei.mapper.TagMapper">
-    <resultMap id="BaseResultMap" type="com.chenbei.entity.Tag">
+<mapper namespace="com.chenbei.persistence.mapper.TagMapper">
+    <resultMap id="BaseResultMap" type="com.chenbei.persistence.entity.Tag">
         <!--
           WARNING - @mbg.generated
         -->

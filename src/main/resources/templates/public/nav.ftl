@@ -5,7 +5,7 @@
         <img class="mr-3" alt="Logo"
              src="/img/logo.png" style="max-width: 30px">
         <a class="navbar-brand" href="#">
-            FS-Blog
+           Chenbei-Blog
         </a>
     <#-- 响应式导航下拉按钮 -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"

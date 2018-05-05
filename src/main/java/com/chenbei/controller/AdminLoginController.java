@@ -1,9 +1,9 @@
 package com.chenbei.controller;
 
 import com.chenbei.controller.base.BaseController;
-import com.chenbei.entity.AdminUser;
-import com.chenbei.entity.dto.form.UserLoginForm;
-import com.chenbei.service.api.IAdminUserService;
+import com.chenbei.persistence.entity.AdminUser;
+import com.chenbei.persistence.entity.dto.form.UserLoginForm;
+import com.chenbei.persistence.service.api.IAdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,39 +23,39 @@ import java.util.List;
 @Controller
 public class AdminLoginController extends BaseController {
 
-  @Autowired
-  private IAdminUserService mAdminService;
+    @Autowired
+    private IAdminUserService mAdminService;
 
-  /**
-   * 后台用户登录页面
-   */
-  @GetMapping("/adminlogin")
-  public String pAdminLogin() {
-    return "admin/userlogin";
-  }
-
-  /**
-   * 后台用户登录页面
-   */
-  @GetMapping("/adminlogin/index")
-  public String pAdminLoginIndex() {
-    return "admin/userlogin";
-  }
-
-  /**
-   * 后台用户登录验证
-   */
-  @PostMapping("/adminlogin/login.f")
-  public String fAdminLogin(@Valid UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request) {
-    if (bindingResult.hasErrors()) {
-      List<ObjectError> errors = bindingResult.getAllErrors();
-      return "redirect:/adminlogin?msg=" + errors.get(0).getDefaultMessage();
+    /**
+     * 后台用户登录页面
+     */
+    @GetMapping("/adminlogin")
+    public String pAdminLogin() {
+        return "admin/userlogin";
     }
-    AdminUser user = mAdminService.checkAdminUserExist(userLoginForm);
-    if (null != user) {
-      mAdminService.joinSession(request, user);
-      return "redirect:/admin/index";
+
+    /**
+     * 后台用户登录页面
+     */
+    @GetMapping("/adminlogin/index")
+    public String pAdminLoginIndex() {
+        return "admin/userlogin";
     }
-    return "redirect:/adminlogin?msg=登录失败";
-  }
+
+    /**
+     * 后台用户登录验证
+     */
+    @PostMapping("/adminlogin/login.f")
+    public String fAdminLogin(@Valid UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            return "redirect:/adminlogin?msg=" + errors.get(0).getDefaultMessage();
+        }
+        AdminUser user = mAdminService.checkAdminUserExist(userLoginForm);
+        if (null != user) {
+            mAdminService.joinSession(request, user);
+            return "redirect:/admin/index";
+        }
+        return "redirect:/adminlogin?msg=登录失败";
+    }
 }

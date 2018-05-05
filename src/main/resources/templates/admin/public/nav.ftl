@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Full-Stack 系统后台管理</a>
+        <a class="navbar-brand" href="index.html">后台管理系统</a>
     </div>
 <#-- e 导航左侧-->
 
