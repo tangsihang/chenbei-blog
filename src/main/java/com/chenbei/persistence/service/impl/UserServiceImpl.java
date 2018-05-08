@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 用户信息操作业务实现类
@@ -27,11 +28,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User loginAuthentication(UserLoginForm loginForm) {
-        List<User> userList = mMapper.select(new User().setUsername(loginForm.getUsername()).setPassword(DigestUtils.md5Hex(loginForm.getPassword())));
-        if (null != userList && userList.size() == 1) {
-            return userList.get(0);
+        User param = new User();
+        param.setUsername(loginForm.getUsername());
+        param.setPassword(DigestUtils.md5Hex(loginForm.getPassword()));
+        User user = mMapper.seleceUser(param);
+        if (Objects.isNull(user)){
+            return null;
+        }else {
+            return user;
         }
-        return null;
     }
 
     @Override
